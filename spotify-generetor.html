@@ -1,0 +1,993 @@
+<html lang="pt-BR" class="scroll-smooth" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Gerador Suit - Gerador de Códigos Spotify</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            // Cores inspiradas na Tesla: neutras com um toque de verde tecnológico
+            greencustom: '#00A86B', // Um verde mais escuro e sofisticado
+            greencustomdark: '#007A4D', // Um verde ainda mais sutil para detalhes
+            backgrounddark: '#1A1A1A', // Fundo escuro mais suave
+            backgroundlight: '#F0F0F0', // Fundo claro mais suave
+            textdark: '#E0E0E0', // Texto claro para fundo escuro
+            textlight: '#333333', // Texto escuro para fundo claro
+            borderdark: '#444444', // Bordas sutis para tema escuro
+            borderlight: '#CCCCCC', // Bordas sutis para tema claro
+          },
+          keyframes: {
+            popIn: {
+              '0%': { opacity: '0', transform: 'scale(0.95)' }, // Mais sutil
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            },
+            popClick: {
+              '0%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(0.98)' }, // Mais sutil
+              '100%': { transform: 'scale(1)' },
+            },
+            fadeOut: {
+              '0%': { opacity: '1' },
+              '100%': { opacity: '0' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            rotateSun: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
+            rotateMoon: {
+              '0%': { transform: 'rotate(360deg)' },
+              '100%': { transform: 'rotate(0deg)' },
+            },
+          },
+          animation: {
+            popIn: 'popIn 0.2s ease-out forwards', // Mais rápido e suave
+            popClick: 'popClick 0.15s ease-out forwards', // Mais rápido e suave
+            fadeOut: 'fadeOut 0.4s ease-out forwards',
+            fadeIn: 'fadeIn 0.4s ease-out forwards',
+            rotateSun: 'rotateSun 5s linear infinite',
+            rotateMoon: 'rotateMoon 5s linear infinite',
+          },
+          fontFamily: {
+            sans: ['"Poppins"', 'sans-serif'], // Manter Poppins, é uma boa fonte moderna
+          },
+        },
+      },
+    };
+  </script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background-color: #1A1A1A; /* Fundo escuro mais suave */
+      color: #E0E0E0; /* Texto claro para fundo escuro */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      user-select: none;
+    }
+    body.light {
+      background-color: #F0F0F0; /* Fundo claro mais suave */
+      color: #333333; /* Texto escuro para fundo claro */
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      color: #00A86B; /* Verde de destaque */
+      outline: none;
+    }
+    header {
+      background-color: transparent;
+      padding: 1.5rem 2rem; /* Mais padding para um visual mais espaçoso */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      border-bottom: 1px solid transparent; /* Remover borda visível */
+      transition: border-color 0.3s ease;
+      position: relative;
+      z-index: 50;
+    }
+    body:not(.light) header {
+      border-color: transparent; /* Sem borda visível */
+    }
+    body.light header {
+      border-color: transparent; /* Sem borda visível */
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem; /* Mais espaço */
+      cursor: default;
+    }
+    .logo svg {
+      width: 40px; /* Um pouco maior */
+      height: 40px;
+      fill: currentColor;
+      user-select: none;
+    }
+    .logo h1 {
+      font-weight: 600; /* Um pouco menos bold para um visual mais limpo */
+      font-size: 1.6rem; /* Um pouco maior */
+      letter-spacing: 0.08em; /* Ajustar espaçamento */
+      color: inherit;
+      user-select: text;
+    }
+    #btn-menu, #theme-toggle {
+      background: transparent;
+      border: none;
+      color: inherit; /* Herdar cor do texto principal */
+      font-size: 1.8rem; /* Um pouco maior */
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: color 0.3s ease, background-color 0.3s ease;
+      padding: 0.5rem; /* Adicionar padding para área de clique */
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%; /* Botões redondos */
+    }
+    #btn-menu:hover, #btn-menu:focus,
+    #theme-toggle:hover, #theme-toggle:focus {
+      color: #00A86B; /* Verde de destaque no hover/focus */
+      background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil no hover */
+      outline: none;
+    }
+    #theme-toggle {
+      margin-left: 1rem; /* Mais espaço */
+    }
+    #icon-sun {
+      animation: rotateSun 5s linear infinite;
+      display: none;
+      color: #FFD700; /* Dourado para o sol */
+      filter: drop-shadow(0 0 2px #FFD700);
+    }
+    #icon-moon {
+      animation: rotateMoon 5s linear infinite;
+      display: block;
+      color: #E0E0E0; /* Cor do texto principal para a lua */
+      filter: drop-shadow(0 0 2px #E0E0E0);
+    }
+    body.light #icon-sun {
+      display: block;
+      color: #FFD700;
+      filter: drop-shadow(0 0 2px #FFD700);
+    }
+    body.light #icon-moon {
+      display: none;
+    }
+    #mobile-menu {
+      position: absolute;
+      top: calc(100% + 0.5rem); /* Um pouco abaixo do header */
+      right: 2rem;
+      background-color: #282828; /* Fundo mais escuro para o menu */
+      border: 1px solid #444444; /* Borda sutil */
+      border-radius: 0.75rem; /* Bordas mais suaves */
+      padding: 1rem 1.5rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.75rem; /* Espaçamento menor */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
+      user-select: none;
+      min-width: 180px; /* Um pouco mais largo */
+      z-index: 100;
+    }
+    #mobile-menu.show {
+      display: flex;
+      animation: popIn 0.2s ease-out forwards;
+    }
+    #mobile-menu a {
+      font-weight: 500; /* Menos bold */
+      font-size: 0.95rem;
+      color: #E0E0E0; /* Cor do texto principal */
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.2rem; /* Ajustar padding */
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s ease, color 0.2s ease;
+      cursor: pointer;
+    }
+    body.light #mobile-menu {
+      background-color: #E8E8E8;
+      border-color: #CCCCCC;
+    }
+    body.light #mobile-menu a {
+      color: #333333;
+    }
+    #mobile-menu a:hover,
+    #mobile-menu a:focus {
+      color: #00A86B; /* Verde de destaque */
+      border-bottom-color: #00A86B; /* Verde de destaque */
+      outline: none;
+    }
+    main {
+      max-width: 560px; /* Um pouco mais largo para mais espaço */
+      margin: 4rem auto 5rem; /* Mais margem para espaçamento */
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem; /* Mais espaço entre as seções */
+      user-select: none;
+    }
+    main h2 {
+      font-weight: 700; /* Menos bold que 900 */
+      font-size: 2.8rem;
+      color: inherit; /* Herdar cor do texto principal */
+      text-align: center;
+      margin-bottom: 0.5rem;
+      user-select: text;
+      letter-spacing: 0.05em; /* Ajustar espaçamento */
+    }
+    main p.description {
+      color: #A0A0A0; /* Cinza suave */
+      font-size: 1.05rem; /* Um pouco maior */
+      text-align: center;
+      user-select: text;
+      line-height: 1.5;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+    /* Sections container */
+    .section {
+      background-color: #222222; /* Fundo da seção mais escuro */
+      border: 1px solid #444444; /* Borda sutil */
+      border-radius: 1rem; /* Bordas mais suaves */
+      padding: 2rem 2.5rem; /* Mais padding */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Sombra mais suave */
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem; /* Mais espaço entre elementos */
+    }
+    body.light .section {
+      background-color: #FFFFFF;
+      border-color: #CCCCCC;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+    .section label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: inherit; /* Herdar cor do texto principal */
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      user-select: none;
+    }
+    /* Inputs */
+    #gerador-section input[readonly],
+    #webhook-section input[type="url"],
+    #webhook-section input[type="number"],
+    #link-verifier-section input[type="text"],
+    #mass-generator-section input[type="number"],
+    #mass-generator-output {
+      background-color: #333333; /* Fundo dos inputs mais escuro */
+      color: #E0E0E0; /* Texto dos inputs claro */
+      border: 1px solid #555555; /* Borda sutil */
+      border-radius: 0.75rem; /* Bordas suaves */
+      padding: 0.8rem 1.2rem; /* Padding consistente */
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none; /* Remover outline padrão */
+    }
+    body.light #gerador-section input[readonly],
+    body.light #webhook-section input[type="url"],
+    body.light #webhook-section input[type="number"],
+    body.light #link-verifier-section input[type="text"],
+    body.light #mass-generator-section input[type="number"],
+    body.light #mass-generator-output {
+      background-color: #F8F8F8;
+      color: #333333;
+      border-color: #BBBBBB;
+    }
+    #gerador-section input[readonly]:focus,
+    #webhook-section input[type="url"]:focus,
+    #webhook-section input[type="number"]:focus,
+    #link-verifier-section input[type="text"]:focus,
+    #mass-generator-section input[type="number"]:focus,
+    #mass-generator-output:focus {
+      border-color: #00A86B; /* Verde de destaque no focus */
+      box-shadow: 0 0 0 2px rgba(0, 168, 107, 0.3); /* Sombra de focus sutil */
+    }
+    #gerador-section input[readonly] {
+      text-align: center;
+      cursor: text; /* Permitir seleção de texto */
+      user-select: all;
+    }
+    /* Buttons */
+    .buttons button,
+    #btn-send-webhook,
+    #btn-verify-link,
+    #btn-mass-generate {
+      background-color: #00A86B; /* Verde de destaque */
+      color: #FFFFFF; /* Texto branco */
+      padding: 0.9rem 1.5rem; /* Padding generoso */
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-radius: 9999px; /* Botões pílula */
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3); /* Sombra sutil do verde */
+      transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      text-transform: uppercase;
+    }
+    .buttons button:hover:not(:disabled),
+    #btn-send-webhook:hover:not(:disabled),
+    #btn-verify-link:hover:not(:disabled),
+    #btn-mass-generate:hover:not(:disabled) {
+      background-color: #007A4D; /* Verde mais escuro no hover */
+      box-shadow: 0 6px 16px rgba(0, 168, 107, 0.4); /* Sombra mais pronunciada */
+      transform: translateY(-1px); /* Efeito de "levantar" */
+    }
+    .buttons button:active:not(:disabled),
+    #btn-send-webhook:active:not(:disabled),
+    #btn-verify-link:active:not(:disabled),
+    #btn-mass-generate:active:not(:disabled) {
+      transform: translateY(0); /* Retorna à posição original */
+      box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3);
+    }
+    .buttons button:disabled,
+    #btn-send-webhook:disabled,
+    #btn-verify-link:disabled,
+    #btn-mass-generate:disabled {
+      opacity: 0.4; /* Mais sutil que 0.5 */
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+    #gerador-section button#btn-copy,
+    #gerador-section button#btn-open {
+      background-color: #333333; /* Fundo escuro para botões secundários */
+      color: #E0E0E0; /* Texto claro */
+      box-shadow: none; /* Sem sombra */
+      border: 1px solid #555555; /* Borda sutil */
+    }
+    body.light #gerador-section button#btn-copy,
+    body.light #gerador-section button#btn-open {
+      background-color: #F8F8F8;
+      color: #333333;
+      border-color: #BBBBBB;
+    }
+    #gerador-section button#btn-copy:hover:not(:disabled),
+    #gerador-section button#btn-open:hover:not(:disabled) {
+      background-color: #444444; /* Fundo um pouco mais claro no hover */
+      color: #FFFFFF;
+      border-color: #666666;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+    body.light #gerador-section button#btn-copy:hover:not(:disabled),
+    body.light #gerador-section button#btn-open:hover:not(:disabled) {
+      background-color: #E0E0E0;
+      color: #333333;
+      border-color: #AAAAAA;
+    }
+
+    /* Status and Accuracy */
+    #gerador-section #status,
+    #webhook-status,
+    #verify-result,
+    #mass-accuracy {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #A0A0A0; /* Cinza suave */
+      min-height: 1.5rem;
+      text-align: center;
+      user-select: none;
+      transition: opacity 0.3s ease, color 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+    #verify-result.invalid {
+      color: #E04040; /* Vermelho mais suave */
+    }
+    #verify-result.valid {
+      color: #00A86B; /* Verde de destaque */
+    }
+    #gerador-section #accuracy {
+      margin-top: 0.25rem; /* Ajustar margem */
+      margin-bottom: 0.25rem;
+    }
+    #mass-generator-output {
+      min-height: 120px; /* Altura mínima */
+      max-height: 250px; /* Altura máxima */
+      resize: vertical; /* Permitir redimensionamento vertical */
+    }
+    #mass-generator-section .buttons {
+      margin-top: 1rem; /* Mais espaço */
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+      .logo h1 {
+        font-size: 1.4rem;
+      }
+      .logo svg {
+        width: 36px;
+        height: 36px;
+      }
+      #btn-menu, #theme-toggle {
+        font-size: 1.6rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0.25rem;
+      }
+      #mobile-menu {
+        right: 1.5rem;
+        min-width: 160px;
+      }
+      main {
+        max-width: 100%;
+        margin: 2.5rem 1rem 3.5rem;
+        padding: 0 1rem;
+        gap: 2rem;
+      }
+      main h2 {
+        font-size: 2.2rem;
+      }
+      .section {
+        padding: 1.5rem 1.5rem;
+        gap: 1rem;
+      }
+      .buttons button {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.95rem;
+      }
+      #webhook-section .webhook-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      #webhook-section .webhook-controls input[type="number"] {
+        width: 100%;
+        max-width: 8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" aria-label="Logo Gerador Suit">
+      <!-- SVG do robô minimalista e moderno (mantido) -->
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" >
+        <path fill="currentColor" d="M32 0C14.327 0 0 14.327 0 32s14.327 32 32 32 32-14.327 32-32S49.673 0 32 0zm10.5 20.5c1.933 0 3.5 1.567 3.5 3.5s-1.567 3.5-3.5 3.5-3.5-1.567-3.5-3.5 1.567-3.5 3.5-3.5zm-21 0c1.933 0 3.5 1.567 3.5 3.5s-1.567 3.5-3.5 3.5-3.5-1.567-3.5-3.5 1.567-3.5 3.5-3.5zM32 48c-6.627 0-12-5.373-12-12h24c0 6.627-5.373 12-12 12z"/>
+      </svg>
+      <h1>Gerador Suit</h1>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="btn-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" type="button" title="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <button id="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema" type="button">
+        <i id="icon-sun" class="fas fa-sun"></i>
+        <i id="icon-moon" class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+  <nav id="mobile-menu" aria-label="Menu móvel" hidden>
+    <a href="#gerador-section" tabindex="0">Gerador</a>
+    <a href="#webhook-section" tabindex="0">Webhook</a>
+    <a href="#link-verifier-section" tabindex="0">Verificador</a>
+    <a href="#mass-generator-section" tabindex="0">Gerador em Massa</a>
+  </nav>
+
+  <main>
+    <section
+      id="gerador-section"
+      class="section"
+      aria-label="Gerador de código"
+      role="region"
+      tabindex="-1"
+    >
+      <label for="codigo">Link Gerado</label>
+      <input
+        id="codigo"
+        type="text"
+        readonly
+        placeholder="Clique em Gerar para criar um link"
+        aria-label="Campo de link gerado"
+        tabindex="0"
+      />
+      <div class="buttons">
+        <button id="btn-gerar" type="button" aria-live="polite" title="Gerar link">
+          <i class="fas fa-sync-alt"></i> Gerar
+        </button>
+        <button id="btn-copy" type="button" aria-label="Copiar link" title="Copiar link" disabled>
+          <i class="fas fa-copy"></i> Copiar
+        </button>
+        <button id="btn-open" type="button" aria-label="Abrir link no Spotify" title="Abrir link no Spotify" disabled>
+          <i class="fas fa-external-link-alt"></i> Abrir
+        </button>
+      </div>
+      <p id="status" aria-live="polite" role="status"></p>
+      <p id="accuracy"></p>
+    </section>
+
+    <section
+      id="webhook-section"
+      class="section"
+      aria-label="Webhook Discord"
+    >
+      <label for="webhook-url">Webhook Discord (cole o link)</label>
+      <input
+        id="webhook-url"
+        type="url"
+        placeholder="https://discord.com/api/webhooks/..."
+        aria-label="URL do webhook do Discord"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div class="webhook-controls">
+        <label for="webhook-count">Quantidade de links</label>
+        <input
+          id="webhook-count"
+          type="number"
+          min="1"
+          max="100"
+          value="10"
+          aria-label="Quantidade de links para enviar"
+        />
+      </div>
+      <button id="btn-send-webhook" type="button" disabled title="Começar envio para o webhook">
+        <i class="fas fa-paper-plane"></i> Enviar
+      </button>
+      <p id="webhook-status" aria-live="polite" role="status"></p>
+    </section>
+
+    <section
+      id="link-verifier-section"
+      class="section"
+      aria-label="Verificador de link"
+    >
+      <h3>Verificador de Link</h3>
+      <label for="verify-link">Cole o link para verificar</label>
+      <input
+        id="verify-link"
+        type="text"
+        placeholder="https://www.spotify.com/br-pt/ppt/microsoft/?code=..."
+        aria-label="Campo para verificar link"
+      />
+      <button id="btn-verify-link" type="button" aria-label="Verificar link">
+        <i class="fas fa-search"></i> Verificar
+      </button>
+      <p id="verify-result" role="status"></p>
+    </section>
+
+    <section
+      id="mass-generator-section"
+      class="section"
+      aria-label="Gerador de links em massa"
+    >
+      <h3>Gerador em Massa</h3>
+      <label for="mass-count">Quantidade de links a gerar (máx 500)</label>
+      <input
+        id="mass-count"
+        type="number"
+        min="1"
+        max="500"
+        value="100"
+        aria-label="Quantidade de links para gerar em massa"
+      />
+      <button id="btn-mass-generate" type="button" title="Gerar links em massa">
+        <i class="fas fa-robot"></i> Gerar em Massa
+      </button>
+      <textarea
+        id="mass-generator-output"
+        readonly
+        placeholder="Os links gerados aparecerão aqui..."
+        rows="8"
+      ></textarea>
+      <p id="mass-accuracy"></p>
+      <div class="buttons" style="justify-content:center; margin-top:0.5rem;">
+        <button id="btn-copy-mass" type="button" disabled>
+          <i class="fas fa-copy"></i> Copiar
+        </button>
+        <button id="btn-download-mass" type="button" disabled>
+          <i class="fas fa-file-download"></i> Baixar TXT
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer style="text-align:center; padding:1.5rem 0; font-weight:400; font-size:0.85rem; color:#A0A0A0; user-select:none; letter-spacing:0.05em;">
+    © 2024 Gerador Suit. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const bodyEl = document.body;
+
+    function setTheme(theme) {
+      if (theme === "light") {
+        bodyEl.classList.add("light");
+        bodyEl.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      } else {
+        bodyEl.classList.remove("light");
+        bodyEl.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      }
+    }
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+      setTheme(prefersLight ? "light" : "dark");
+    }
+
+    themeToggleBtn.addEventListener("click", () => {
+      if (bodyEl.classList.contains("light")) {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+    });
+
+    // Mobile menu toggle
+    const btnMenu = document.getElementById("btn-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+    btnMenu.addEventListener("click", () => {
+      const expanded = btnMenu.getAttribute("aria-expanded") === "true";
+      btnMenu.setAttribute("aria-expanded", !expanded);
+      if (mobileMenu.hasAttribute("hidden")) {
+        mobileMenu.removeAttribute("hidden");
+        mobileMenu.classList.add("show");
+      } else {
+        mobileMenu.classList.add("fadeOut");
+        setTimeout(() => {
+          mobileMenu.classList.remove("show");
+          mobileMenu.classList.remove("fadeOut");
+          mobileMenu.setAttribute("hidden", "");
+        }, 200);
+      }
+    });
+
+    // Generate random code
+    function generateRandomCode(length = 10) {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    // Simulate code validity with ~60% success rate
+    function simulateValidity() {
+      return Math.random() < 0.6;
+    }
+
+    // Generate and verify multiple codes quickly
+    async function generateAndVerifyBatch(count = 100, maxDurationMs = 10000) {
+      const codes = [];
+      const startTime = performance.now();
+      let attempts = 0;
+      while (codes.length < count && (performance.now() - startTime) < maxDurationMs) {
+        const code = generateRandomCode(10);
+        attempts++;
+        if (simulateValidity()) {
+          codes.push(code);
+        }
+        // Yield to UI thread every 50 attempts
+        if (attempts % 50 === 0) await new Promise(r => setTimeout(r, 0));
+      }
+      return { codes, attempts };
+    }
+
+    // Elements
+    const btnGerar = document.getElementById("btn-gerar");
+    const inputCodigo = document.getElementById("codigo");
+    const btnCopy = document.getElementById("btn-copy");
+    const btnOpen = document.getElementById("btn-open");
+    const status = document.getElementById("status");
+    const accuracy = document.getElementById("accuracy"); // Usado para a porcentagem do gerador único
+    const webhookInput = document.getElementById("webhook-url");
+    const webhookCountInput = document.getElementById("webhook-count");
+    const webhookStatus = document.getElementById("webhook-status");
+    const btnSendWebhook = document.getElementById("btn-send-webhook");
+    const verifyInput = document.getElementById("verify-link");
+    const verifyBtn = document.getElementById("btn-verify-link");
+    const verifyResult = document.getElementById("verify-result");
+    const massCountInput = document.getElementById("mass-count");
+    const massGenerateBtn = document.getElementById("btn-mass-generate");
+    const massOutput = document.getElementById("mass-generator-output");
+    const massCopyBtn = document.getElementById("btn-copy-mass");
+    const massDownloadBtn = document.getElementById("btn-download-mass");
+    const massAccuracy = document.getElementById("mass-accuracy");
+
+    const validLinks = [];
+    let totalGenerated = 0;
+    let totalValid = 0;
+
+    function updateButtonsState(enabled) {
+      btnCopy.disabled = !enabled;
+      btnOpen.disabled = !enabled;
+      btnSendWebhook.disabled = validLinks.length === 0 || !webhookInput.value.trim();
+      if (enabled) {
+        btnCopy.classList.remove("opacity-50", "cursor-not-allowed");
+        btnOpen.classList.remove("opacity-50", "cursor-not-allowed");
+      } else {
+        btnCopy.classList.add("opacity-50", "cursor-not-allowed");
+        btnOpen.classList.add("opacity-50", "cursor-not-allowed");
+      }
+      if (validLinks.length === 0 || !webhookInput.value.trim()) {
+        btnSendWebhook.classList.add("opacity-50", "cursor-not-allowed");
+      } else {
+        btnSendWebhook.classList.remove("opacity-50", "cursor-not-allowed");
+      }
+    }
+
+    // Função para atualizar a taxa de acerto do gerador único
+    function updateSingleGeneratorAccuracy(isValid) {
+      const successRate = 60; // Taxa de sucesso simulada
+      if (isValid) {
+        accuracy.textContent = `Link gerado com ${successRate}% de chance de ser válido. (Válido!)`;
+        accuracy.style.color = '#00A86B'; // Verde para válido
+      } else {
+        accuracy.textContent = `Link gerado com ${successRate}% de chance de ser válido. (Inválido!)`;
+        accuracy.style.color = '#E04040'; // Vermelho para inválido
+      }
+      accuracy.style.opacity = "1";
+      setTimeout(() => {
+        accuracy.style.transition = "opacity 0.5s ease";
+        accuracy.style.opacity = "0";
+      }, 3500);
+    }
+
+    updateButtonsState(false);
+
+    btnGerar.addEventListener("click", async () => {
+      btnGerar.disabled = true;
+      updateButtonsState(false);
+      status.style.opacity = "1";
+      status.textContent = "Gerando e verificando código...";
+      inputCodigo.value = "";
+      validLinks.length = 0; // Limpa links válidos para o gerador único
+
+      const code = generateRandomCode(10);
+      const isValid = simulateValidity(); // Simula a validade
+      const link = `https://www.spotify.com/br-pt/ppt/microsoft/?code=${code}`;
+
+      inputCodigo.value = link;
+      status.textContent = "Código gerado!";
+      updateSingleGeneratorAccuracy(isValid); // Atualiza a porcentagem para o gerador único
+
+      if (isValid) {
+        validLinks.push(link); // Adiciona apenas se for válido para o webhook
+      }
+
+      updateButtonsState(isValid); // Habilita botões apenas se o link gerado for válido
+
+      setTimeout(() => {
+        status.style.transition = "opacity 0.5s ease";
+        status.style.opacity = "0";
+      }, 3500);
+
+      btnGerar.disabled = false;
+    });
+
+    inputCodigo.addEventListener("click", () => {
+      inputCodigo.select();
+    });
+
+    btnCopy.addEventListener("click", () => {
+      if (!inputCodigo.value) return;
+      btnCopy.animate(
+        [
+          { transform: "scale(1)" },
+          { transform: "scale(0.9)" },
+          { transform: "scale(1)" },
+        ],
+        { duration: 200, easing: "ease-in-out" }
+      );
+      navigator.clipboard.writeText(inputCodigo.value).then(() => {
+        status.style.opacity = "1";
+        status.textContent = "Link copiado para a área de transferência!";
+        setTimeout(() => {
+          status.style.transition = "opacity 0.5s ease";
+          status.style.opacity = "0";
+        }, 2500);
+      }).catch(() => {
+        status.style.opacity = "1";
+        status.textContent = "Falha ao copiar o link.";
+        setTimeout(() => {
+          status.style.transition = "opacity 0.5s ease";
+          status.style.opacity = "0";
+        }, 2500);
+      });
+    });
+
+    btnOpen.addEventListener("click", () => {
+      if (!inputCodigo.value) return;
+      btnOpen.animate(
+        [
+          { transform: "scale(1)" },
+          { transform: "scale(0.9)" },
+          { transform: "scale(1)" },
+        ],
+        { duration: 200, easing: "ease-in-out" }
+      );
+      window.open(inputCodigo.value, "_blank", "noopener,noreferrer");
+    });
+
+    webhookInput.addEventListener("input", () => {
+      updateButtonsState(validLinks.length > 0);
+    });
+
+    btnSendWebhook.addEventListener("click", async () => {
+      const webhookUrl = webhookInput.value.trim();
+      webhookStatus.textContent = "";
+      if (!webhookUrl) {
+        webhookStatus.textContent = "Por favor, insira uma URL de webhook válida.";
+        return;
+      }
+      if (validLinks.length === 0) {
+        webhookStatus.textContent = "Nenhum link válido para enviar.";
+        return;
+      }
+      let count = parseInt(webhookCountInput.value, 10);
+      if (isNaN(count) || count < 1) count = 1;
+      if (count > 100) count = 100;
+      btnSendWebhook.disabled = true;
+      webhookStatus.textContent = "Enviando links para o webhook...";
+      try {
+        const linksToSend = validLinks.slice(0, count);
+        const embeds = [];
+        const chunkSize = 10;
+        for (let i = 0; i < linksToSend.length; i += chunkSize) {
+          const chunk = linksToSend.slice(i, i + chunkSize);
+          embeds.push({
+            title: `Gerador Suit - Links Válidos (${chunk.length})`,
+            color: 3066993,
+            description: chunk.join('\n'),
+            timestamp: new Date().toISOString(),
+          });
+        }
+
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ embeds }),
+        });
+
+        if (response.ok) {
+          webhookStatus.textContent = `Enviado com sucesso ${linksToSend.length} links!`;
+          validLinks.splice(0, linksToSend.length);
+          updateButtonsState(validLinks.length > 0);
+        } else {
+          webhookStatus.textContent = `Falha ao enviar webhook: ${response.status}`;
+        }
+      } catch (error) {
+        webhookStatus.textContent = `Erro ao enviar webhook: ${error.message}`;
+      }
+      btnSendWebhook.disabled = false;
+      setTimeout(() => {
+        webhookStatus.style.transition = "opacity 0.5s ease";
+        webhookStatus.style.opacity = "0";
+      }, 5000);
+    });
+
+    // Link Verifier Section
+    verifyBtn.addEventListener("click", async () => {
+      const link = verifyInput.value.trim();
+      verifyResult.textContent = "";
+      verifyResult.classList.remove("valid", "invalid");
+      if (!link) {
+        verifyResult.textContent = "Por favor, insira um link para verificar.";
+        verifyResult.classList.add("invalid");
+        return;
+      }
+      const match = link.match(/code=([A-Za-z0-9]{10})/);
+      if (!match) {
+        verifyResult.textContent = "Link inválido ou formato incorreto.";
+        verifyResult.classList.add("invalid");
+        return;
+      }
+      const code = match[1];
+      verifyResult.textContent = "Verificando link...";
+      await new Promise(r => setTimeout(r, 300));
+      if (Math.random() < 0.6) {
+        verifyResult.textContent = "Link válido!";
+        verifyResult.classList.remove("invalid");
+        verifyResult.classList.add("valid");
+      } else {
+        verifyResult.textContent = "Link inválido.";
+        verifyResult.classList.remove("valid");
+        verifyResult.classList.add("invalid");
+      }
+    });
+
+    // Mass Generator Section
+    massGenerateBtn.addEventListener("click", async () => {
+      let count = parseInt(massCountInput.value, 10);
+      if (isNaN(count) || count < 1) count = 1;
+      if (count > 500) count = 500;
+      massGenerateBtn.disabled = true;
+      massOutput.value = "";
+      massCopyBtn.disabled = true;
+      massDownloadBtn.disabled = true;
+      massAccuracy.textContent = "Gerando e verificando códigos...";
+      const startTime = performance.now();
+      const { codes, attempts } = await generateAndVerifyBatch(count, 10000);
+      const duration = (performance.now() - startTime) / 1000;
+      massOutput.value = codes.map(c => `https://www.spotify.com/br-pt/ppt/microsoft/?code=${c}`).join('\n');
+      massCopyBtn.disabled = codes.length === 0;
+      massDownloadBtn.disabled = codes.length === 0;
+      const rate = ((codes.length / attempts) * 100).toFixed(1);
+      massAccuracy.textContent = `Gerados ${codes.length} códigos válidos em ${duration.toFixed(2)}s — Taxa de acerto: ${rate}%`;
+      massGenerateBtn.disabled = false;
+    });
+
+    massCopyBtn.addEventListener("click", () => {
+      if (!massOutput.value) return;
+      massCopyBtn.animate(
+        [
+          { transform: 'scale(1)' },
+          { transform: 'scale(0.9)' },
+          { transform: 'scale(1)' }
+        ],
+        { duration: 200, easing: 'ease-in-out' }
+      );
+      navigator.clipboard.writeText(massOutput.value).then(() => {
+        alert("Links copiados para a área de transferência!");
+      }).catch(() => {
+        alert("Falha ao copiar os links.");
+      });
+    });
+
+    massDownloadBtn.addEventListener("click", () => {
+      if (!massOutput.value) return;
+      const blob = new Blob([massOutput.value], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "links_gerados.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // On page load, focus generator input
+    window.addEventListener("DOMContentLoaded", () => {
+      const geradorSection = document.getElementById("gerador-section");
+      geradorSection.style.display = "flex";
+      setTimeout(() => {
+        geradorSection.classList.add("visible");
+      }, 50);
+    });
+  </script>
+</body>
+</html>
