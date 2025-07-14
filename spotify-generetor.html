@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Gerador Suit - Gerador de Códigos Spotify</title>
+  <title>@suit 1v1.lol1</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -10,24 +10,20 @@
       theme: {
         extend: {
           colors: {
-            // Cores inspiradas na Tesla: neutras com um toque de verde tecnológico
-            greencustom: '#00A86B', // Um verde mais escuro e sofisticado
-            greencustomdark: '#007A4D', // Um verde ainda mais sutil para detalhes
-            backgrounddark: '#1A1A1A', // Fundo escuro mais suave
-            backgroundlight: '#F0F0F0', // Fundo claro mais suave
-            textdark: '#E0E0E0', // Texto claro para fundo escuro
-            textlight: '#333333', // Texto escuro para fundo claro
-            borderdark: '#444444', // Bordas sutis para tema escuro
-            borderlight: '#CCCCCC', // Bordas sutis para tema claro
+            greencustom: '#1ef14e',
+            greencustomdark: '#14b32f',
+            backgrounddark: '#0a0a0a',
+            backgroundlight: '#f9f9f9',
           },
           keyframes: {
             popIn: {
-              '0%': { opacity: '0', transform: 'scale(0.95)' }, // Mais sutil
+              '0%': { opacity: '0', transform: 'scale(0.8)' },
+              '80%': { opacity: '1', transform: 'scale(1.05)' },
               '100%': { opacity: '1', transform: 'scale(1)' },
             },
             popClick: {
               '0%': { transform: 'scale(1)' },
-              '50%': { transform: 'scale(0.98)' }, // Mais sutil
+              '50%': { transform: 'scale(0.9)' },
               '100%': { transform: 'scale(1)' },
             },
             fadeOut: {
@@ -48,22 +44,22 @@
             },
           },
           animation: {
-            popIn: 'popIn 0.2s ease-out forwards', // Mais rápido e suave
-            popClick: 'popClick 0.15s ease-out forwards', // Mais rápido e suave
-            fadeOut: 'fadeOut 0.4s ease-out forwards',
-            fadeIn: 'fadeIn 0.4s ease-out forwards',
+            popIn: 'popIn 0.3s ease forwards',
+            popClick: 'popClick 0.2s ease forwards',
+            fadeOut: 'fadeOut 0.5s ease forwards',
+            fadeIn: 'fadeIn 0.5s ease forwards',
             rotateSun: 'rotateSun 5s linear infinite',
             rotateMoon: 'rotateMoon 5s linear infinite',
           },
           fontFamily: {
-            sans: ['"Poppins"', 'sans-serif'], // Manter Poppins, é uma boa fonte moderna
+            sans: ['"Poppins"', 'sans-serif'],
           },
         },
       },
     };
   </script>
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
     rel="stylesheet"
   />
   <link
@@ -75,16 +71,16 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       min-height: 100vh;
-      background-color: #1A1A1A; /* Fundo escuro mais suave */
-      color: #E0E0E0; /* Texto claro para fundo escuro */
+      background-color: #0a0a0a;
+      color: #1ef14e;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       transition: background-color 0.4s ease, color 0.4s ease;
       user-select: none;
     }
     body.light {
-      background-color: #F0F0F0; /* Fundo claro mais suave */
-      color: #333333; /* Texto escuro para fundo claro */
+      background-color: #f9f9f9;
+      color: #14b32f;
     }
     a {
       color: inherit;
@@ -92,382 +88,605 @@
     }
     a:hover,
     a:focus {
-      color: #00A86B; /* Verde de destaque */
+      color: #1ef14e;
       outline: none;
     }
     header {
       background-color: transparent;
-      padding: 1.5rem 2rem; /* Mais padding para um visual mais espaçoso */
+      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       user-select: none;
-      border-bottom: 1px solid transparent; /* Remover borda visível */
+      border-bottom: 1px solid transparent;
       transition: border-color 0.3s ease;
       position: relative;
       z-index: 50;
     }
     body:not(.light) header {
-      border-color: transparent; /* Sem borda visível */
+      border-color: #14b32f;
     }
     body.light header {
-      border-color: transparent; /* Sem borda visível */
+      border-color: #1ef14e;
     }
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem; /* Mais espaço */
+      gap: 0.5rem;
       cursor: default;
     }
     .logo svg {
-      width: 40px; /* Um pouco maior */
-      height: 40px;
+      width: 36px;
+      height: 36px;
       fill: currentColor;
       user-select: none;
     }
     .logo h1 {
-      font-weight: 600; /* Um pouco menos bold para um visual mais limpo */
-      font-size: 1.6rem; /* Um pouco maior */
-      letter-spacing: 0.08em; /* Ajustar espaçamento */
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
       color: inherit;
       user-select: text;
     }
-    #btn-menu, #theme-toggle {
+    #btn-menu {
       background: transparent;
       border: none;
-      color: inherit; /* Herdar cor do texto principal */
-      font-size: 1.8rem; /* Um pouco maior */
+      color: #1ef14e;
+      font-size: 1.75rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       user-select: none;
-      transition: color 0.3s ease, background-color 0.3s ease;
-      padding: 0.5rem; /* Adicionar padding para área de clique */
-      width: 3rem;
-      height: 3rem;
-      border-radius: 50%; /* Botões redondos */
+      transition: color 0.3s ease;
+      padding: 0;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 9999px;
     }
-    #btn-menu:hover, #btn-menu:focus,
-    #theme-toggle:hover, #theme-toggle:focus {
-      color: #00A86B; /* Verde de destaque no hover/focus */
-      background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil no hover */
+    #btn-menu:hover,
+    #btn-menu:focus {
+      color: #14b32f;
       outline: none;
     }
     #theme-toggle {
-      margin-left: 1rem; /* Mais espaço */
+      background: transparent;
+      border: none;
+      color: #1ef14e;
+      font-size: 1.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 9999px;
+      transition: color 0.3s ease;
+      user-select: none;
+      margin-left: 0.75rem;
+    }
+    #theme-toggle:focus {
+      outline: 2px solid #14b32f;
+      outline-offset: 2px;
     }
     #icon-sun {
       animation: rotateSun 5s linear infinite;
       display: none;
-      color: #FFD700; /* Dourado para o sol */
-      filter: drop-shadow(0 0 2px #FFD700);
+      color: #facc15;
+      filter: drop-shadow(0 0 2px #facc15);
     }
     #icon-moon {
       animation: rotateMoon 5s linear infinite;
       display: block;
-      color: #E0E0E0; /* Cor do texto principal para a lua */
-      filter: drop-shadow(0 0 2px #E0E0E0);
+      color: #1ef14e;
+      filter: drop-shadow(0 0 2px #1ef14e);
     }
     body.light #icon-sun {
       display: block;
-      color: #FFD700;
-      filter: drop-shadow(0 0 2px #FFD700);
     }
     body.light #icon-moon {
       display: none;
     }
     #mobile-menu {
       position: absolute;
-      top: calc(100% + 0.5rem); /* Um pouco abaixo do header */
-      right: 2rem;
-      background-color: #282828; /* Fundo mais escuro para o menu */
-      border: 1px solid #444444; /* Borda sutil */
-      border-radius: 0.75rem; /* Bordas mais suaves */
+      top: 100%;
+      right: 1.5rem;
+      background-color: #121212;
+      border: 2px solid #1ef14e;
+      border-radius: 1rem;
       padding: 1rem 1.5rem;
       display: none;
       flex-direction: column;
-      gap: 0.75rem; /* Espaçamento menor */
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
+      gap: 1rem;
+      box-shadow: 0 0 20px #1ef14eaa;
       user-select: none;
-      min-width: 180px; /* Um pouco mais largo */
+      min-width: 160px;
       z-index: 100;
     }
     #mobile-menu.show {
       display: flex;
-      animation: popIn 0.2s ease-out forwards;
+      animation: popIn 0.25s ease forwards;
     }
     #mobile-menu a {
-      font-weight: 500; /* Menos bold */
-      font-size: 0.95rem;
-      color: #E0E0E0; /* Cor do texto principal */
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1ef14e;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.4rem 0.2rem; /* Ajustar padding */
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0;
       border-bottom: 2px solid transparent;
-      transition: border-color 0.2s ease, color 0.2s ease;
+      transition: border-color 0.3s ease, color 0.3s ease;
       cursor: pointer;
-    }
-    body.light #mobile-menu {
-      background-color: #E8E8E8;
-      border-color: #CCCCCC;
-    }
-    body.light #mobile-menu a {
-      color: #333333;
     }
     #mobile-menu a:hover,
     #mobile-menu a:focus {
-      color: #00A86B; /* Verde de destaque */
-      border-bottom-color: #00A86B; /* Verde de destaque */
+      color: #14b32f;
+      border-bottom-color: #14b32f;
       outline: none;
     }
     main {
-      max-width: 560px; /* Um pouco mais largo para mais espaço */
-      margin: 4rem auto 5rem; /* Mais margem para espaçamento */
-      padding: 0 1.5rem;
+      max-width: 480px;
+      margin: 3rem auto 4rem;
+      padding: 0 1rem;
       display: flex;
       flex-direction: column;
-      gap: 3rem; /* Mais espaço entre as seções */
+      gap: 2.5rem;
       user-select: none;
     }
     main h2 {
-      font-weight: 700; /* Menos bold que 900 */
-      font-size: 2.8rem;
-      color: inherit; /* Herdar cor do texto principal */
+      font-weight: 900;
+      font-size: 2.75rem;
+      color: #1ef14e;
       text-align: center;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
       user-select: text;
-      letter-spacing: 0.05em; /* Ajustar espaçamento */
+      letter-spacing: 0.15em;
     }
     main p.description {
-      color: #A0A0A0; /* Cinza suave */
-      font-size: 1.05rem; /* Um pouco maior */
+      color: #a0fba0;
+      font-size: 1rem;
       text-align: center;
       user-select: text;
-      line-height: 1.5;
-      font-weight: 400;
-      letter-spacing: 0.02em;
+      line-height: 1.4;
+      font-weight: 500;
+      letter-spacing: 0.05em;
     }
     /* Sections container */
     .section {
-      background-color: #222222; /* Fundo da seção mais escuro */
-      border: 1px solid #444444; /* Borda sutil */
-      border-radius: 1rem; /* Bordas mais suaves */
-      padding: 2rem 2.5rem; /* Mais padding */
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Sombra mais suave */
+      background-color: #121212;
+      border: 2px solid #1ef14e;
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 20px #1ef14eaa;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem; /* Mais espaço entre elementos */
-    }
-    body.light .section {
-      background-color: #FFFFFF;
-      border-color: #CCCCCC;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      gap: 1rem;
     }
     .section label {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: inherit; /* Herdar cor do texto principal */
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #1ef14e;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       user-select: none;
     }
-    /* Inputs */
-    #gerador-section input[readonly],
-    #webhook-section input[type="url"],
-    #webhook-section input[type="number"],
-    #link-verifier-section input[type="text"],
-    #mass-generator-section input[type="number"],
-    #mass-generator-output {
-      background-color: #333333; /* Fundo dos inputs mais escuro */
-      color: #E0E0E0; /* Texto dos inputs claro */
-      border: 1px solid #555555; /* Borda sutil */
-      border-radius: 0.75rem; /* Bordas suaves */
-      padding: 0.8rem 1.2rem; /* Padding consistente */
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: 0.03em;
-      transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      outline: none; /* Remover outline padrão */
-    }
-    body.light #gerador-section input[readonly],
-    body.light #webhook-section input[type="url"],
-    body.light #webhook-section input[type="number"],
-    body.light #link-verifier-section input[type="text"],
-    body.light #mass-generator-section input[type="number"],
-    body.light #mass-generator-output {
-      background-color: #F8F8F8;
-      color: #333333;
-      border-color: #BBBBBB;
-    }
-    #gerador-section input[readonly]:focus,
-    #webhook-section input[type="url"]:focus,
-    #webhook-section input[type="number"]:focus,
-    #link-verifier-section input[type="text"]:focus,
-    #mass-generator-section input[type="number"]:focus,
-    #mass-generator-output:focus {
-      border-color: #00A86B; /* Verde de destaque no focus */
-      box-shadow: 0 0 0 2px rgba(0, 168, 107, 0.3); /* Sombra de focus sutil */
-    }
+    /* Generator */
     #gerador-section input[readonly] {
+      background-color: #222;
+      color: #1ef14e;
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding: 0.75rem 1.25rem;
+      border-radius: 1rem;
       text-align: center;
-      cursor: text; /* Permitir seleção de texto */
+      cursor: pointer;
       user-select: all;
-    }
-    /* Buttons */
-    .buttons button,
-    #btn-send-webhook,
-    #btn-verify-link,
-    #btn-mass-generate {
-      background-color: #00A86B; /* Verde de destaque */
-      color: #FFFFFF; /* Texto branco */
-      padding: 0.9rem 1.5rem; /* Padding generoso */
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      border-radius: 9999px; /* Botões pílula */
       border: none;
-      box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3); /* Sombra sutil do verde */
-      transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+      transition: background-color 0.3s ease;
+      letter-spacing: 0.1em;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    #gerador-section input[readonly]:focus {
+      outline: 2px solid #1ef14e;
+      background-color: #1a1a1a;
+    }
+    #gerador-section .buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #gerador-section button {
+      flex: 1 1 120px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 14px #1ef14eaa;
+      user-select: none;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      border-radius: 9999px;
+      border: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: #1ef14e;
+      color: #000;
+    }
+    #gerador-section button#btn-gerar:hover:not(:disabled),
+    #gerador-section button#btn-gerar:focus:not(:disabled) {
+      background-color: #14b32f;
+      color: #d1f7d6;
+      box-shadow: 0 8px 20px #14b32fcc;
+      outline: none;
+    }
+    #gerador-section button#btn-copy,
+    #gerador-section button#btn-open {
+      background-color: #0f3f0f;
+      color: #a0fba0;
+      box-shadow: 0 6px 14px #14b32f88;
+    }
+    #gerador-section button#btn-copy:hover:not(:disabled),
+    #gerador-section button#btn-copy:focus:not(:disabled),
+    #gerador-section button#btn-open:hover:not(:disabled),
+    #gerador-section button#btn-open:focus:not(:disabled) {
+      background-color: #14b32f;
+      color: #d1f7d6;
+      box-shadow: 0 8px 20px #14b32fcc;
+      outline: none;
+    }
+    #gerador-section button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    #gerador-section #status {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #1ef14e;
+      min-height: 1.5rem;
+      text-align: center;
+      user-select: none;
+      transition: opacity 0.3s ease;
+      letter-spacing: 0.05em;
+    }
+    #gerador-section #accuracy {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #a0fba0;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 0.05em;
+      margin-top: -0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    /* Webhook separate box */
+    #webhook-section {
+      background-color: #121212;
+      border: 2px solid #1ef14e;
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 20px #1ef14eaa;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      user-select: none;
+    }
+    #webhook-section label {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #1ef14e;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      user-select: none;
+    }
+    #webhook-section input[type="url"] {
+      background-color: #222;
+      border-radius: 0.75rem;
+      border: 1.5px solid #1ef14e;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      font-family: 'Courier New', Courier, monospace;
+      color: #1ef14e;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      user-select: text;
+      outline-offset: 2px;
+      letter-spacing: 0.05em;
+    }
+    #webhook-section input[type="url"]:focus {
+      background-color: #1a1a1a;
+      border-color: #14b32f;
+      outline: 2px solid #1ef14e;
+      color: #1ef14e;
+    }
+    #webhook-section .webhook-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      user-select: none;
+    }
+    #webhook-section .webhook-controls label {
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #1ef14e;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+    }
+    #webhook-section .webhook-controls input[type="number"] {
+      background-color: #222;
+      border-radius: 0.75rem;
+      border: 1.5px solid #1ef14e;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.9rem;
+      font-family: 'Courier New', Courier, monospace;
+      color: #1ef14e;
+      width: 5rem;
+      text-align: center;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      outline-offset: 2px;
+      letter-spacing: 0.05em;
+    }
+    #webhook-section .webhook-controls input[type="number"]:focus {
+      background-color: #1a1a1a;
+      border-color: #14b32f;
+      outline: 2px solid #1ef14e;
+      color: #1ef14e;
+    }
+    #btn-send-webhook {
+      background-color: #1ef14e;
+      color: #000;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border-radius: 9999px;
+      box-shadow: 0 8px 20px #1ef14eee;
+      width: 100%;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      cursor: pointer;
+    }
+    #btn-send-webhook:hover:not(:disabled),
+    #btn-send-webhook:focus:not(:disabled) {
+      background-color: #14b32f;
+      color: #d1f7d6;
+      box-shadow: 0 10px 25px #14b32fcc;
+      outline: none;
+    }
+    #btn-send-webhook:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    #webhook-status {
+      margin-top: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #1ef14e;
+      min-height: 1.5rem;
+      text-align: center;
+      user-select: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+      transition: opacity 0.3s ease;
+      letter-spacing: 0.05em;
+    }
+    /* Verifier */
+    #link-verifier-section {
+      background-color: #121212;
+      border: 2px solid #1ef14e;
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 20px #1ef14eaa;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      user-select: none;
+    }
+    #link-verifier-section h3 {
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: #1ef14e;
+      user-select: none;
+      margin: 0;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    #link-verifier-section label {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #1ef14e;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      user-select: none;
+    }
+    #link-verifier-section input[type="text"] {
+      background-color: #222;
+      border-radius: 1rem;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      font-size: 1.125rem;
+      font-family: 'Courier New', Courier, monospace;
+      color: #1ef14e;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      outline-offset: 2px;
+      user-select: all;
+      letter-spacing: 0.1em;
+    }
+    #link-verifier-section input[type="text"]:focus {
+      background-color: #1a1a1a;
+      outline: 2px solid #1ef14e;
+      color: #1ef14e;
+    }
+    #link-verifier-section button {
+      background-color: #1ef14e;
+      color: #000;
+      padding: 0.75rem 1rem;
+      font-size: 1.125rem;
+      border-radius: 9999px;
+      box-shadow: 0 8px 20px #1ef14eee;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    #link-verifier-section button:hover:not(:disabled),
+    #link-verifier-section button:focus:not(:disabled) {
+      background-color: #14b32f;
+      color: #d1f7d6;
+      box-shadow: 0 10px 25px #14b32fcc;
+      outline: none;
+    }
+    #link-verifier-section button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    #verify-result {
+      font-weight: 700;
+      font-size: 1.125rem;
+      min-height: 1.5rem;
+      text-align: center;
+      user-select: none;
+      margin-top: 0.5rem;
+      color: #1ef14e;
+      transition: color 0.3s ease;
+      letter-spacing: 0.05em;
+    }
+    #verify-result.invalid {
+      color: #e03e3e;
+    }
+    /* Mass generator */
+    #mass-generator-section {
+      background-color: #121212;
+      border: 2px solid #1ef14e;
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 20px #1ef14eaa;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      user-select: none;
+    }
+    #mass-generator-section h3 {
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: #1ef14e;
+      user-select: none;
+      margin: 0;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    #mass-generator-section label {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #1ef14e;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      user-select: none;
+    }
+    #mass-generator-section input[type="number"] {
+      background-color: #222;
+      border-radius: 0.75rem;
+      border: 1.5px solid #1ef14e;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      color: #1ef14e;
+      width: 6rem;
+      text-align: center;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      outline-offset: 2px;
+      letter-spacing: 0.05em;
+      user-select: text;
+    }
+    #mass-generator-section input[type="number"]:focus {
+      background-color: #1a1a1a;
+      border-color: #14b32f;
+      outline: 2px solid #1ef14e;
+      color: #1ef14e;
+    }
+    #mass-generator-section button {
+      background-color: #1ef14e;
+      color: #000;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border-radius: 9999px;
+      box-shadow: 0 8px 20px #1ef14eee;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      text-transform: uppercase;
+      gap: 0.5rem;
     }
-    .buttons button:hover:not(:disabled),
-    #btn-send-webhook:hover:not(:disabled),
-    #btn-verify-link:hover:not(:disabled),
-    #btn-mass-generate:hover:not(:disabled) {
-      background-color: #007A4D; /* Verde mais escuro no hover */
-      box-shadow: 0 6px 16px rgba(0, 168, 107, 0.4); /* Sombra mais pronunciada */
-      transform: translateY(-1px); /* Efeito de "levantar" */
+    #mass-generator-section button:hover:not(:disabled),
+    #mass-generator-section button:focus:not(:disabled) {
+      background-color: #14b32f;
+      color: #d1f7d6;
+      box-shadow: 0 10px 25px #14b32fcc;
+      outline: none;
     }
-    .buttons button:active:not(:disabled),
-    #btn-send-webhook:active:not(:disabled),
-    #btn-verify-link:active:not(:disabled),
-    #btn-mass-generate:active:not(:disabled) {
-      transform: translateY(0); /* Retorna à posição original */
-      box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3);
-    }
-    .buttons button:disabled,
-    #btn-send-webhook:disabled,
-    #btn-verify-link:disabled,
-    #btn-mass-generate:disabled {
-      opacity: 0.4; /* Mais sutil que 0.5 */
+    #mass-generator-section button:disabled {
+      opacity: 0.5;
       cursor: not-allowed;
       box-shadow: none;
-      transform: none;
-    }
-    #gerador-section button#btn-copy,
-    #gerador-section button#btn-open {
-      background-color: #333333; /* Fundo escuro para botões secundários */
-      color: #E0E0E0; /* Texto claro */
-      box-shadow: none; /* Sem sombra */
-      border: 1px solid #555555; /* Borda sutil */
-    }
-    body.light #gerador-section button#btn-copy,
-    body.light #gerador-section button#btn-open {
-      background-color: #F8F8F8;
-      color: #333333;
-      border-color: #BBBBBB;
-    }
-    #gerador-section button#btn-copy:hover:not(:disabled),
-    #gerador-section button#btn-open:hover:not(:disabled) {
-      background-color: #444444; /* Fundo um pouco mais claro no hover */
-      color: #FFFFFF;
-      border-color: #666666;
-      box-shadow: none;
-      transform: translateY(-1px);
-    }
-    body.light #gerador-section button#btn-copy:hover:not(:disabled),
-    body.light #gerador-section button#btn-open:hover:not(:disabled) {
-      background-color: #E0E0E0;
-      color: #333333;
-      border-color: #AAAAAA;
-    }
-
-    /* Status and Accuracy */
-    #gerador-section #status,
-    #webhook-status,
-    #verify-result,
-    #mass-accuracy {
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: #A0A0A0; /* Cinza suave */
-      min-height: 1.5rem;
-      text-align: center;
-      user-select: none;
-      transition: opacity 0.3s ease, color 0.3s ease;
-      letter-spacing: 0.02em;
-    }
-    #verify-result.invalid {
-      color: #E04040; /* Vermelho mais suave */
-    }
-    #verify-result.valid {
-      color: #00A86B; /* Verde de destaque */
-    }
-    #gerador-section #accuracy {
-      margin-top: 0.25rem; /* Ajustar margem */
-      margin-bottom: 0.25rem;
     }
     #mass-generator-output {
-      min-height: 120px; /* Altura mínima */
-      max-height: 250px; /* Altura máxima */
-      resize: vertical; /* Permitir redimensionamento vertical */
+      margin-top: 0.75rem;
+      background-color: #222;
+      border: 1.5px solid #1ef14e;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      color: #1ef14e;
+      width: 100%;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 200px;
+      overflow-y: auto;
+      user-select: all;
+      letter-spacing: 0.05em;
     }
-    #mass-generator-section .buttons {
-      margin-top: 1rem; /* Mais espaço */
+    #mass-accuracy {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #a0fba0;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
     }
-
     /* Responsive */
     @media (max-width: 768px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
-      .logo h1 {
-        font-size: 1.4rem;
-      }
-      .logo svg {
-        width: 36px;
-        height: 36px;
-      }
-      #btn-menu, #theme-toggle {
-        font-size: 1.6rem;
-        width: 2.75rem;
-        height: 2.75rem;
-        padding: 0.25rem;
-      }
       #mobile-menu {
-        right: 1.5rem;
-        min-width: 160px;
+        right: 1rem;
+        min-width: 140px;
       }
       main {
         max-width: 100%;
-        margin: 2.5rem 1rem 3.5rem;
-        padding: 0 1rem;
-        gap: 2rem;
-      }
-      main h2 {
-        font-size: 2.2rem;
-      }
-      .section {
-        padding: 1.5rem 1.5rem;
-        gap: 1rem;
-      }
-      .buttons button {
-        padding: 0.8rem 1.2rem;
-        font-size: 0.95rem;
-      }
-      #webhook-section .webhook-controls {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-      #webhook-section .webhook-controls input[type="number"] {
-        width: 100%;
-        max-width: 8rem;
+        margin: 2rem 1rem 3rem;
       }
     }
   </style>
@@ -475,15 +694,18 @@
 <body>
   <header>
     <div class="logo" aria-label="Logo Gerador Suit">
-      <!-- SVG do robô minimalista e moderno (mantido) -->
       <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" >
-        <path fill="currentColor" d="M32 0C14.327 0 0 14.327 0 32s14.327 32 32 32 32-14.327 32-32S49.673 0 32 0zm10.5 20.5c1.933 0 3.5 1.567 3.5 3.5s-1.567 3.5-3.5 3.5-3.5-1.567-3.5-3.5 1.567-3.5 3.5-3.5zm-21 0c1.933 0 3.5 1.567 3.5 3.5s-1.567 3.5-3.5 3.5-3.5-1.567-3.5-3.5 1.567-3.5 3.5-3.5zM32 48c-6.627 0-12-5.373-12-12h24c0 6.627-5.373 12-12 12z"/>
+        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="3" fill="none" />
+        <rect x="230" y="20" width="24" height="24" stroke="currentColor" stroke-width="3" fill="none" rx="4" ry="4"/>
+        <circle cx="26" cy="26" r="3" fill="currentColor"/>
+        <circle cx="38" cy="26" r="3" fill="currentColor"/>
+        <path d="M26 38h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
       </svg>
-      <h1>Gerador Suit</h1>
+      <h1>Gerador Spotify Trimensal - By @suit</h1>
     </div>
     <div class="flex items-center gap-2">
       <button id="btn-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" type="button" title="Menu">
-        <i class="fas fa-bars"></i>
+        <i class="fas fa-robot"></i>
       </button>
       <button id="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema" type="button">
         <i id="icon-sun" class="fas fa-sun"></i>
@@ -586,7 +808,7 @@
       aria-label="Gerador de links em massa"
     >
       <h3>Gerador em Massa</h3>
-      <label for="mass-count">Quantidade de links a gerar (máx 500)</label>
+      <label for="mass-count">Quantidade: (máx 500)</label>
       <input
         id="mass-count"
         type="number"
@@ -616,8 +838,8 @@
     </section>
   </main>
 
-  <footer style="text-align:center; padding:1.5rem 0; font-weight:400; font-size:0.85rem; color:#A0A0A0; user-select:none; letter-spacing:0.05em;">
-    © 2024 Gerador Suit. Todos os direitos reservados.
+  <footer style="text-align:center; padding:1rem 0; font-weight:600; font-size:0.875rem; color:#1ef14e; user-select:none; letter-spacing:0.1em;">
+    © 2025 @1v1.lol1
   </footer>
 
   <script>
@@ -710,7 +932,7 @@
     const btnCopy = document.getElementById("btn-copy");
     const btnOpen = document.getElementById("btn-open");
     const status = document.getElementById("status");
-    const accuracy = document.getElementById("accuracy"); // Usado para a porcentagem do gerador único
+    const accuracy = document.getElementById("accuracy");
     const webhookInput = document.getElementById("webhook-url");
     const webhookCountInput = document.getElementById("webhook-count");
     const webhookStatus = document.getElementById("webhook-status");
@@ -747,21 +969,13 @@
       }
     }
 
-    // Função para atualizar a taxa de acerto do gerador único
-    function updateSingleGeneratorAccuracy(isValid) {
-      const successRate = 60; // Taxa de sucesso simulada
-      if (isValid) {
-        accuracy.textContent = `Link gerado com ${successRate}% de chance de ser válido. (Válido!)`;
-        accuracy.style.color = '#00A86B'; // Verde para válido
-      } else {
-        accuracy.textContent = `Link gerado com ${successRate}% de chance de ser válido. (Inválido!)`;
-        accuracy.style.color = '#E04040'; // Vermelho para inválido
+    function updateAccuracy() {
+      if (totalGenerated === 0) {
+        accuracy.textContent = '';
+        return;
       }
-      accuracy.style.opacity = "1";
-      setTimeout(() => {
-        accuracy.style.transition = "opacity 0.5s ease";
-        accuracy.style.opacity = "0";
-      }, 3500);
+      const rate = ((totalValid / totalGenerated) * 100).toFixed(1);
+      accuracy.textContent = `Taxa de acerto: ${rate}% (Média: ${(rate).toFixed(1)}%)`;
     }
 
     updateButtonsState(false);
@@ -770,23 +984,30 @@
       btnGerar.disabled = true;
       updateButtonsState(false);
       status.style.opacity = "1";
-      status.textContent = "Gerando e verificando código...";
+      status.textContent = "Gerando e verificando 100 códigos...";
       inputCodigo.value = "";
-      validLinks.length = 0; // Limpa links válidos para o gerador único
+      validLinks.length = 0;
+      totalGenerated += 100;
+      let validCount = 0;
 
-      const code = generateRandomCode(10);
-      const isValid = simulateValidity(); // Simula a validade
-      const link = `https://www.spotify.com/br-pt/ppt/microsoft/?code=${code}`;
+      const { codes, attempts } = await generateAndVerifyBatch(100, 2000);
+      validCount = codes.length;
+      totalValid += validCount;
 
-      inputCodigo.value = link;
-      status.textContent = "Código gerado!";
-      updateSingleGeneratorAccuracy(isValid); // Atualiza a porcentagem para o gerador único
-
-      if (isValid) {
-        validLinks.push(link); // Adiciona apenas se for válido para o webhook
+      if (validCount === 0) {
+        status.textContent = "Nenhum código válido encontrado. Tente novamente.";
+        btnGerar.disabled = false;
+        updateAccuracy();
+        return;
       }
 
-      updateButtonsState(isValid); // Habilita botões apenas se o link gerado for válido
+      const randomCode = codes[Math.floor(Math.random() * codes.length)];
+      const link = `https://www.spotify.com/br-pt/ppt/microsoft/?code=${randomCode}`;
+      inputCodigo.value = link;
+      status.textContent = `Gerado e verificado!`;
+      validLinks.push(...codes.map(c => `https://www.spotify.com/br-pt/ppt/microsoft/?code=${c}`));
+      updateButtonsState(true);
+      updateAccuracy();
 
       setTimeout(() => {
         status.style.transition = "opacity 0.5s ease";
@@ -848,7 +1069,7 @@
       const webhookUrl = webhookInput.value.trim();
       webhookStatus.textContent = "";
       if (!webhookUrl) {
-        webhookStatus.textContent = "Por favor, insira uma URL de webhook válida.";
+        webhookStatus.textContent = "WebHook Inválida.";
         return;
       }
       if (validLinks.length === 0) {
